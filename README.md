@@ -51,3 +51,17 @@ cd Evidence-based-recommender-systems/
 conda create --name myenv --file requirements.txt
 conda activate myenv
 ```
+
+# Demo
+
+To run the demo of the project in folder [code](code), we activate the conda environment installed in the previous step and start the jupyter notebook
+
+```
+conda activate myenv
+cd Evidence-based-recommender-systems
+jupyter-notebook
+```
+
+Expected output of each example is shown in coressponding ipython file. The runtimes of the [first example](code/basic_example.iynb) and the [second example](code/evaluate_recommendation_performance_using_k_folds) are about 15 minutes.
+
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.4557463.svg)](https://doi.org/10.5281/zenodo.4557463)
