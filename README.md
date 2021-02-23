@@ -67,6 +67,8 @@ Expected output of each example is shown in coressponding ipython file. The runt
 # Instructions for use
 
 1. The recommender system aims to solve the combinatorial problems in material science; we thus represent data using the binary representation following the format of data set used in our publication [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.4557463.svg)](https://doi.org/10.5281/zenodo.4557463)
-2. Import ```SimilarityCombinationElement``` and ```SimilarityCombinationElement``` classes from the [similarity_combination_element_lib.py](code/ers/similarity_combination_element_lib.py)
-3. We use the ```SimilarityCombinationElement``` class to measure the similarity , in terms of substitutability between the elements combinations.
-4. We use the ```SimilarityCombinationElement``` class to estimate the belief assigned for property of new combinations.
+2. Import ```SimilarityCombinationElement``` and ```InstanceBasedClassifier``` classes from the [similarity_combination_element_lib.py](code/ers/similarity_combination_element_lib.py)
+3. We use the ```SimilarityCombinationElement``` class to measure the similarity, in terms of substitutability between the elements combinations.
+4. We use the ```InstanceBasedClassifier``` class to estimate the belief assigned for property of new combinations.
+
+*Note: The detail of using the system is shown in the [first example](code/basic_example.ipynb)*
