@@ -7,7 +7,7 @@ The ERS is a comprehensive independence testing projects including source code o
 
 # Repo Contents
 
-* code: ipython notebook example
+* [code](code): ipython notebook example
 * code/ers: python source code of the recommender system
 * data: demo data set of the project
 * output: output files contain ranking indices of HEAs in test set of each cross-validation and a figure show the distribution of the ranking indices
@@ -39,4 +39,4 @@ The project mainly depends on the Python scientific stack
 * matplotlib
 * seaborn
 
-The list of requirement package and their version are shown in details in the file requirement.txt
+The list of requirement package and their version are shown in details in the file [requirement.txt](requirement.txt)
