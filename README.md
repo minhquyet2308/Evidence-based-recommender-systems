@@ -1,9 +1,9 @@
 # Evidence-based-recommender-systems
-The implementation of the evidence-based recommender systems (ERS) for high-entropy alloys (HEAs) contains source codes in Python programming language and demo data set of the work.
+The implementation of the evidence-based recommender systems (ERS) for high-entropy alloys (HEAs) contains source codes in Python programming language and demo data sets of the project.
 
 # Overview
 
-The ERS is a comprehensive independence testing projects including source code of the recommender system, testing python notebooks and small data sets to demo the implementation. These tests contain a basic example to show the commender system's usage and an example to explain the method to evaluate the recommender system using an experiment with k-folds cross-validation.
+The ERS is a comprehensive independence testing projects including source code of the recommender system, examples using ipython notebooks and small data sets to demo the implementation. These tests contain a basic example to show the commender system's usage and an example to explain the method to evaluate the recommender system using an experiment with k-folds cross-validation.
 
 # Repo Contents
 
@@ -16,7 +16,7 @@ The ERS is a comprehensive independence testing projects including source code o
 
 ## Hardware Requirements
 
-The project contains a simple version of the system deployed in standard computer. However, it requires high computation cost and is time-consuming
+The project contains a simplified version of our proposed recommender system, which are deployed on a standard computer. However, the version requires is time-consuming as the number of data instances or the number of elements increase.
 
 ## Software requirements
 
