@@ -22,9 +22,9 @@ The project contains a simple version of the system deployed in standard compute
 
 ### OS Requirements
 
-This package is supported for macOS and Linux. The package has been tested on the following systems:
+This package is supported for *macOS* and *Linux*. The package has been tested on the following systems:
 
-* macOS: Mojave (10.14.1)
+* macOS: Mojave (10.14.6)
 * Linux: CentOS 7
 
 ### Python Dependencies
