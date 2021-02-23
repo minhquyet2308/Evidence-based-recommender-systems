@@ -16,7 +16,7 @@ The ERS is a comprehensive independence testing projects including source code o
 
 ## Hardware Requirements
 
-The project contains a simplified version of our proposed recommender system, which are deployed on a standard computer. However, the version requires is time-consuming as the number of data instances or the number of elements increase.
+The project contains a simplified version of our proposed recommender system, which are deployed on a standard computer. However, the version is time-consuming as the number of data instances or the number of elements increase.
 
 ## Software requirements
 
