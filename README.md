@@ -1,9 +1,16 @@
 # Evidence-based-recommender-systems
-The implementation of the evidence-based recommender systems (ERS) for HEA contains source codes in Python programming language and demo data set of the work.
+The implementation of the evidence-based recommender systems (ERS) for high-entropy alloys (HEAs) contains source codes in Python programming language and demo data set of the work.
 
 # Overview
 
-The ERS is a comprehensive independence testing projects including source code of the recommender system, testing python notebooks and small data sets to demo the implementation. These test contains a basic example to show the usage of the recommender system and a example to explain the method to evaluate the recommender system using experiment with k-folds cross-validation.
+The ERS is a comprehensive independence testing projects including source code of the recommender system, testing python notebooks and small data sets to demo the implementation. These tests contain a basic example to show the commender system's usage and an example to explain the method to evaluate the recommender system using an experiment with k-folds cross-validation.
+
+# Repo Contents
+
+* code: ipython notebook example
+* code/ers: python source code of the recommender system
+* data: demo data set of the project
+* output: output files contain ranking indices of HEAs in test set of each cross-validation and a figure show the distribution of the ranking indices
 
 # System Requirements
 
@@ -17,9 +24,19 @@ The project contains a simple version of the system deployed in standard compute
 
 This package is supported for macOS and Linux. The package has been tested on the following systems:
 
-macOS: Mojave (10.14.1)
-Linux: CentOS 7
+* macOS: Mojave (10.14.1)
+* Linux: CentOS 7
 
 ### Python Dependencies
 
-ers mainly depends on the Python scientific stack
+The project mainly depends on the Python scientific stack
+
+* scikit-learn
+* scipy
+* pandas
+* numpy
+* notebook
+* matplotlib
+* seaborn
+
+The list of requirement package and their version are shown in details in the file requirement.txt
