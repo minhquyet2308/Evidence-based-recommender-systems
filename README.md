@@ -62,6 +62,11 @@ cd Evidence-based-recommender-systems
 jupyter-notebook
 ```
 
-Expected output of each example is shown in coressponding ipython file. The runtimes of the [first example](code/basic_example.iynb) and the [second example](code/evaluate_recommendation_performance_using_k_folds) are about 15 minutes.
+Expected output of each example is shown in coressponding ipython file. The runtimes of the [first example](code/basic_example.ipynb) and the [second example](code/evaluate_recommendation_performance_using_k_folds.ipynb) are about 15 minutes.
 
-[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.4557463.svg)](https://doi.org/10.5281/zenodo.4557463)
+# Instructions for use
+
+1. The recommender system aims to solve the combinatorial problems in material science; we thus represent data using the binary representation following the format of data set used in our publication [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.4557463.svg)](https://doi.org/10.5281/zenodo.4557463)
+2. Import ```SimilarityCombinationElement``` and ```SimilarityCombinationElement``` classes from the [similarity_combination_element_lib.py](code/ers/similarity_combination_element_lib.py)
+3. We use the ```SimilarityCombinationElement``` class to measure the similarity , in terms of substitutability between the elements combinations.
+4. We use the ```SimilarityCombinationElement``` class to estimate the belief assigned for property of new combinations.
