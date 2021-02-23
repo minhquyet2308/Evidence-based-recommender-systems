@@ -40,3 +40,14 @@ The project mainly depends on the Python scientific stack
 * seaborn
 
 The list of requirement package and their version are shown in details in the file [requirements.txt](requirements.txt)
+
+# Installation Guide
+
+To install the project, the [Anaconda program](https://www.google.com/url?sa=t&rct=j&q=&esrc=s&source=web&cd=&cad=rja&uact=8&ved=2ahUKEwjjtdOynoDvAhVFE6YKHQWgBDsQFjABegQIBhAD&url=https%3A%2F%2Fdocs.anaconda.com%2Fanaconda%2Finstall%2F&usg=AOvVaw0Y7hdNB3U4QdhBqCbBWwGJ) is required to install in advanced
+
+```
+git clone https://github.com/minhquyet2308/Evidence-based-recommender-systems.git
+cd Evidence-based-recommender-systems/
+conda create --name myenv --file requirements.txt
+conda activate myenv
+```
