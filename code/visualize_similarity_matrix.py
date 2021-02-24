@@ -45,8 +45,8 @@ def main():
     plt.figure(figsize=(10,8), dpi=300)
     ax_setting()
     df_matrix = sort_matrix(df_similarity.loc[ELEMENTS, ELEMENTS], order=dendrogram["ivl"]) # Sort the order of elements in similarity matrix using the order obtained from dendogram
-    ax = sns.heatmap(df_matrix, cmap="YlGnBu", xticklabels=ELEMENTS, 
-        yticklabels=ELEMENTS, vmax=1, vmin=0
+    ax = sns.heatmap(df_matrix, cmap="YlGnBu", xticklabels=df_matrix.columns.values, 
+        yticklabels=df_matrix.index.values, vmax=1, vmin=0
     )
     cbar = ax.collections[0].colorbar
     cbar.ax.tick_params(labelsize=24)
