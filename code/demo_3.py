@@ -110,7 +110,7 @@ def main():
     # Visualize the ranking indices
     visualize_ranking_indices(mean_ranking_HEA)
 
-OUTPUT_FOLDER = "../output/recommendation_CV/ASMI16"
+OUTPUT_FOLDER = "../results/demo_3"
 INPUT_DATA = "../data/HEA_data.ASMI16.csv"
 N_SPLITS = 9
 N_REPEATS = 3

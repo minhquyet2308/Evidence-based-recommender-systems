@@ -54,7 +54,7 @@ def main():
     plt.savefig("{}/similarity.pdf".format(OUTPUT_FOLDER), dpi=300, bbox_inches='tight')
 
 INPUT_DATA = "../data/HEA_data.demo.csv"
-OUTPUT_FOLDER = "../output/visualize_similarity"
+OUTPUT_FOLDER = "../results/demo_1"
 SIMILARITY_VALUE = 0.1 # parameter alpha
 MAX_SIZE_SUBSET = 2 # max size of elements combinations measured the similarity and used to predict the property of alloy
 ELEMENTS = ['Ag', 'Au', 'Co', 'Cr', 'Cu', 'Fe', 'Mo', 'Ni', 'Pd', 'Pt']
