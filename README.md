@@ -43,7 +43,7 @@ The list of requirement package and their version are shown in details in the fi
 
 # Installation Guide
 
-To install the project, the [Anaconda program](https://www.google.com/url?sa=t&rct=j&q=&esrc=s&source=web&cd=&cad=rja&uact=8&ved=2ahUKEwjjtdOynoDvAhVFE6YKHQWgBDsQFjABegQIBhAD&url=https%3A%2F%2Fdocs.anaconda.com%2Fanaconda%2Finstall%2F&usg=AOvVaw0Y7hdNB3U4QdhBqCbBWwGJ) is required to install in advanced
+To install the project, the [Anaconda program](https://www.google.com/url?sa=t&rct=j&q=&esrc=s&source=web&cd=&cad=rja&uact=8&ved=2ahUKEwjjtdOynoDvAhVFE6YKHQWgBDsQFjABegQIBhAD&url=https%3A%2F%2Fdocs.anaconda.com%2Fanaconda%2Finstall%2F&usg=AOvVaw0Y7hdNB3U4QdhBqCbBWwGJ) is required to install in advanced. In addition, we used packages from Intel Distribution for Python and Intel Performance Libraries with the Conda pakage; thus, you add the channel of the channel by using the command: ```conda config --add channels intel```
 
 ```
 git clone https://github.com/minhquyet2308/Evidence-based-recommender-systems.git
