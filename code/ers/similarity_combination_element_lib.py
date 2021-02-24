@@ -4,11 +4,11 @@ import math
 try:
 	from ers.MassFunction import MassFunction
 except:
-    from MassFunction import MassFunction
+	from MassFunction import MassFunction
 try:
 	from scipy.misc import comb
 except:
-    from scipy.special import comb
+	from scipy.special import comb
 import itertools
 import datetime
 
@@ -44,6 +44,8 @@ def collect_similarity_evidence(df_data, sub_sets, similarity_value=0.2):
 	subset_1, subset_2 = sub_sets
 	if len(subset_1) < len(subset_2):
 		subset_1, subset_2 = subset_2, subset_1
+	if len(set(subset_1).intersection(set(subset_2))) != 0:
+		return final_decision, subset_1, subset_2 
 	hosts = get_host(df_data, subset_1, subset_2)
 	
 	for host in hosts:
@@ -217,10 +219,14 @@ class SimilarityCombinationElement(object):
 		pairwise_subsets = self.get_pairwise_subsets()
 		results = []
 		for subsets in pairwise_subsets:
-			print("Evaluate {} and {}".format(subsets[0], subsets[1]))
-			results.append(collect_similarity_evidence(
+			final_decision, subset_1, subset_2 =collect_similarity_evidence(
 				df_data=self.df_data, sub_sets=subsets, similarity_value=self.similarity_value
-			))
+			)
+			print("Evaluate {} and {}: {:.2f} similarity, {:.2f} dissimilarity, {:.2f} unknown".format(
+				subset_1, subset_2, final_decision[frozenset({"similar"})],
+				final_decision[frozenset({"dissimilar"})], final_decision[frozenset({"similar", "dissimilar"})])
+			)
+			results.append([final_decision, subset_1, subset_2])
 		return results
 
 	def __parse_results_to_df__(self, results):

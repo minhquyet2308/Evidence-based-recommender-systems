@@ -62,7 +62,7 @@ cd Evidence-based-recommender-systems
 jupyter-notebook
 ```
 
-Expected output of each example is shown in coressponding ipython file. The runtimes of the [first example](code/basic_example.ipynb) and the [second example](code/evaluate_recommendation_performance_using_k_folds.ipynb) are about 15 minutes.
+Expected output of each example is shown in coressponding ipython file. The runtimes of the [first example](code/basic_example.ipynb), the [second example](code/evaluate_recommendation_performance_using_k_folds.ipynb), and the [third example](code/visualize_similarity_matrix.ipynb) are about 2 minutes, 10 minutes and 0.5 minutes, respectively.
 
 # Instructions for use
 
