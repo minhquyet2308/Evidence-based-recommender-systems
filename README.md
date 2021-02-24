@@ -7,10 +7,10 @@ The ERS is a comprehensive independence testing projects including source code o
 
 # Repo Contents
 
-* [code](code): ipython notebook example
+* [code](code): examples implemented using ipython notebook and Python script
 * [code/ers](code/ers): python source code of the recommender system
 * [data](data): demo data set of the project
-* [output](output): output files contain ranking indices of HEAs in test set of each cross-validation and a figure show the distribution of the ranking indices
+* [output](output): output files contain results of experiments using cross-validation and figures show the similarity matrix
 
 # System Requirements
 
