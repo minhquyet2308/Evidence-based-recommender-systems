@@ -3,7 +3,7 @@ The implementation of the evidence-based recommender systems (ERS) for high-entr
 
 # Overview
 
-The ERS is a comprehensive independence testing projects including source code of the recommender system, examples using ipython notebooks and small data sets to demo the implementation. These tests contain 1) a basic example to show the commender system's usage, 2) an example to illustrate the similarity measurement and 3) an example to explain the method to evaluate the recommender system using an experiment with k-folds cross-validation.
+The ERS is a comprehensive independence testing projects including source code of the recommender system, examples using ipython notebooks and small data sets to demo the implementation. These tests contain 1) an example to illustrate the similarity measurement, 2) a basic example to show the commender system's usage and 3) an example to explain the method to evaluate the recommender system using an experiment with k-folds cross-validation.
 
 # Repo Contents
 
@@ -62,7 +62,7 @@ cd Evidence-based-recommender-systems
 jupyter-notebook
 ```
 
-Expected output of each example is shown in coressponding ipython file. The runtimes of the [first example](code/basic_example.ipynb), the [second example](code/evaluate_recommendation_performance_using_k_folds.ipynb), and the [third example](code/visualize_similarity_matrix.ipynb) are about 2 minutes, 10 minutes and 0.5 minutes, respectively.
+Expected output of each example is shown in coressponding ipython file. The runtimes of the [first example](code/demo_1.ipynb), the [second example](code/demo_2.ipynb), and the [third example](code/demo_3.ipynb) are about 0.5 minutes, 2 minutes and 11 minutes, respectively.
 
 # Instructions for use
 
