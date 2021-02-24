@@ -3,7 +3,7 @@ The implementation of the evidence-based recommender systems (ERS) for high-entr
 
 # Overview
 
-The ERS is a comprehensive independence testing projects including source code of the recommender system, examples using ipython notebooks and small data sets to demo the implementation. These tests contain a basic example to show the commender system's usage and an example to explain the method to evaluate the recommender system using an experiment with k-folds cross-validation.
+The ERS is a comprehensive independence testing projects including source code of the recommender system, examples using ipython notebooks and small data sets to demo the implementation. These tests contain 1) a basic example to show the commender system's usage, 2) an example to illustrate the similarity measurement and 3) an example to explain the method to evaluate the recommender system using an experiment with k-folds cross-validation.
 
 # Repo Contents
 
