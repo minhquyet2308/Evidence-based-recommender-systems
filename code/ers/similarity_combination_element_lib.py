@@ -13,7 +13,9 @@ import itertools
 import datetime
 
 def get_host(df_data, subset_1, subset_2):
-	# Get evidence of similarity of subset1
+	"""
+	Returns hosts, which are intersections between pairwise instances containing subset_1 and subset_2.
+	"""
 	tmp_hosts = []
 	query_string = " == 1 & ".join(subset_1) + " == 1" + "& length > {}".format(len(subset_1))
 	df_tmp = df_data.query(query_string)
@@ -39,6 +41,13 @@ def get_host(df_data, subset_1, subset_2):
 	return hosts
 
 def collect_similarity_evidence(df_data, sub_sets, similarity_value=0.2):
+	"""
+	Returns combined mass function of pieces of evidence about the similarity between two sub_set (elements or combinations of element).
+
+	df_data: A data frame contains observed instances (Details of the data frame can be found in this link: https://doi.org/10.5281/zenodo.4557463).
+	sub_sets: Two sub_set are considered to measure their similarity.
+	similarity_value (or alpha): a hyperparameter is used to handle the conflict between pieces of evidence.
+	"""
 	final_decision = MassFunction(coreset={"similar", "dissimilar"})
 	# Find common hosts
 	subset_1, subset_2 = sub_sets
@@ -63,7 +72,6 @@ def collect_similarity_evidence(df_data, sub_sets, similarity_value=0.2):
 		label_sub_material_2 = df_sub_material_2["Label"].values
 
 		if len(df_sub_material_1.index) == 1 and len(df_sub_material_2.index) == 1:
-			# Normal
 			if label_sub_material_1 == label_sub_material_2:
 				mass_function = MassFunction(
 					source=[
@@ -84,11 +92,16 @@ def collect_similarity_evidence(df_data, sub_sets, similarity_value=0.2):
 def is_prediction_evidence(host, substitute, new_combination, 
 	unk_score, similar_score, threshold
 ):
-	# Intersection between new_combination and substitute is empty set
-	# Intersection between new_combination and host is empty set
-	# The evidence has information (unk_score != 1)
-	# The new_combination not totally dissimilar to substitute (similar_score != 0)
-	# The new_combination is not empty set
+	"""
+	Returns a boolean indicating that evidence satisfies conditions to be used for estimating.
+	
+	Conditions:
+	1) Intersection between new_combination and substitute is empty set.
+	2) Intersection between new_combination and host is empty set.
+	3) The evidence has information (unk_score != 1).
+	4) The new_combination not totally dissimilar to substitute (similar_score != 0).
+	5) The new_combination is not empty set.
+	"""
 	return (len(new_combination.intersection(substitute)) == 0 and \
 		len(new_combination.intersection(host)) == 0 and \
 		unk_score != 1 and \
@@ -105,6 +118,14 @@ def is_prediction_evidence(host, substitute, new_combination,
 def collect_prediction_evidence( material, data, trace=False, 
 	seperate_symbol="|", n_gram_evidence=1, threshold=0
 ):
+	"""
+	Returns the predicted labels of a new instance (material) and combined mass function of collected pieces of evidence.
+	
+	trace: If True, the function adds a list of pieces of evidence, which are used to estimate property of the new instance, to the output.
+	seperate_symbol: symbol is used to separate elements in the instances of the data set.
+	n_gram_evidence: max length of the combinations of element which are used to generate the new instance from observed instances based on substitution method.
+	threshold: threshold is used as a filter to reduce pieces of evidence that are less important.
+	"""
 	df_data, df_similarity, df_dissimilarity, df_uncertainty = data
 	atoms = material.split(seperate_symbol)
 	final_decision = MassFunction(coreset={"High", "Low"})
@@ -115,11 +136,13 @@ def collect_prediction_evidence( material, data, trace=False,
 			substitute = set(substitute)
 			host = set(atoms).difference(substitute)
 			idx_atom = seperate_symbol.join(sorted(substitute))
-			if idx_atom in df_similarity.index:	
+			if idx_atom in df_similarity.index:
 				for ith, similar_score, dissimilar_score, unk_score in zip(df_similarity.index.values, df_similarity[idx_atom].values, df_dissimilarity[idx_atom].values, 
 						df_uncertainty[idx_atom].values
 					):
 					new_combination = set(ith.split(seperate_symbol)) if ith != '' else set()
+
+					# Filter the pieces of evidence
 					if is_prediction_evidence(host, substitute, new_combination,
 						unk_score, similar_score, threshold
 					):
@@ -146,12 +169,28 @@ def collect_prediction_evidence( material, data, trace=False,
 		return material, final_decision
 
 class SimilarityCombinationElement(object):
+	"""
+	A module, which is based on Dempster-Shafer theory, measures similarity between (1) elements, (2) element and combination of element, and (3) combinations of element.
+	The module uses mass functions to model pieces of evidence about the similarity, which are collected from the data set.
+	It should be noted that the instance in work is a multi-principal-element alloy (list of element).
+	This module provides two running modes: single or parallel (using Spark).
+	"""
 
 	def __init__(
 		self, df_data, partitions=None, 
 		rage_size_subset=1, seperate_symbol="|", similarity_value=0.1,
 		threshold=0.0
 	):
+		"""
+		Creates a new object to measure the similarity.
+		
+		df_data: A data frame contains observed instances (Details of the data frame can be found in this link: https://doi.org/10.5281/zenodo.4557463).
+		partitions: number of partitions related to Spark system (More details can be found in the documentation of Spark system).
+		rage_size_subset: max length of the combinations of element which are considered about their similarity.
+		seperate_symbol: symbol is used to separate elements in the instances of the data set.
+		similarity_value (or alpha): a hyperparameter is used to handle the conflict between pieces of evidence.
+		threshold: the threshold is used as a filter to reduce pieces of evidence that are less important.
+		"""
 		self.df_data = df_data
 		self.seperate_symbol = seperate_symbol
 		self.rage_size_subset = rage_size_subset
@@ -166,6 +205,9 @@ class SimilarityCombinationElement(object):
 			self.subsets = self.__generate_subsets__()
 
 	def __find_coreset__(self):
+		"""
+		Return list of elements existing in instances of the data set.
+		"""
 		core_set = set()
 		for label in self.df_data["set_name"].values:
 			if len(core_set) == 0:
@@ -175,6 +217,9 @@ class SimilarityCombinationElement(object):
 		return list(core_set)
 
 	def __generate_subsets__(self):
+		"""
+		Return list of subsets (elements or combinations of elements) is considered about their similarity with each other.
+		"""
 		subsets = []
 		for size_subset in range(self.rage_size_subset + 1):
 			for subset in itertools.combinations(self.core_set, size_subset):
@@ -182,11 +227,17 @@ class SimilarityCombinationElement(object):
 		return subsets
 
 	def get_pairwise_subsets(self):
+		"""
+		Return list of pairwise considered subsets.
+		"""
 		pairwise_subsets = itertools.combinations(self.subsets, 2)
 		return pairwise_subsets
 
 	def __spark_similarity_measurement__(self):
-		
+		"""
+		Return list of similarity between considered subsets.
+		It should be noted that the function is implemented using the Spark system to accelerate runtime.
+		"""
 		pairwise_subsets = self.get_pairwise_subsets()
 		from pyspark import SparkContext, SparkConf
 		conf = (SparkConf().set("spark.driver.maxResultSize", "4g"))
@@ -216,10 +267,13 @@ class SimilarityCombinationElement(object):
 		return results
 
 	def __similarity_measurement__(self):
+		"""
+		Return list of similarity between considered subsets.
+		"""
 		pairwise_subsets = self.get_pairwise_subsets()
 		results = []
 		for subsets in pairwise_subsets:
-			final_decision, subset_1, subset_2 =collect_similarity_evidence(
+			final_decision, subset_1, subset_2 = collect_similarity_evidence(
 				df_data=self.df_data, sub_sets=subsets, similarity_value=self.similarity_value
 			)
 			print("Evaluate {} and {}: {:.2f} similarity, {:.2f} dissimilarity, {:.2f} unknown".format(
@@ -230,6 +284,9 @@ class SimilarityCombinationElement(object):
 		return results
 
 	def __parse_results_to_df__(self, results):
+		"""
+		Return data frames containing data frames contain similarity, dissimilarity and uncertainty between considered subsets.
+		"""
 		n_subsets = len(self.subsets)
 		columns_name = [self.seperate_symbol.join(sorted(k)) for k in self.subsets]
 		
@@ -259,6 +316,11 @@ class SimilarityCombinationElement(object):
 		self.df_uncertainty = df_uncertainty
 
 	def similarity_measurement(self, spark=False):
+		"""
+		Return list of similarity between considered subsets.
+
+		spark: If True, the function is deployed on the Spark system to accelerate runtime.
+		"""
 		if spark:
 			results = self.__spark_similarity_measurement__()
 		else:
@@ -267,15 +329,37 @@ class SimilarityCombinationElement(object):
 		self.is_measured = True
 
 	def to_csv(self, output_dir):
+		"""
+		Save calculated data frames to files.
+
+		output_dir: a path of the destination folder to save the data frames.
+		"""
 		if self.is_measured:
 			self.df_similarity.to_csv("{}/similarity.csv".format(output_dir))
 			self.df_dissimilarity.to_csv("{}/dissimilarity.csv".format(output_dir))
 			self.df_uncertainty.to_csv("{}/uncertainty.csv".format(output_dir))
 
 class InstanceBasedClassifier(object):
+	"""
+	An instance-based classification module using Dempster-Shafer theory.
+	The module uses mass function to model pieces of evidence about the property of the new instance, which are collected from the data set.
+	It should be noted that the instance in the work is a multi-principal-element alloy (list of element).
+	This module provides two running modes: single or parallel (using Spark).
+	"""
 	
 	def __init__(self, df_data, df_similarity, df_dissimilarity, df_uncertainty, seperate_symbol="|", n_gram_evidence=2, partitions=256,
 		threshold=0):
+		"""
+		Creates a new classifier.
+		
+		It is an object to classify new instance based on the observed data set.
+		df_data: A data frame contains observed instances (Details of the data frame can be found in this link: https://doi.org/10.5281/zenodo.4557463).
+		df_similarity, df_dissimilarity, df_uncertainty: data frames contain similarity, dissimilarity and uncertainty between (1) elements, (2) element and combination of element, and (3) combinations of element.
+		seperate_symbol: symbol is used to separate elements in the instances of the data set.
+		n_gram_evidence: max length of the combinations of element which are used to generate the new instance from observed instances based on substitution method.
+		partitions: number of partitions related to Spark system (More details can be found in the documentation of Spark system).
+		threshold: the threshold is used as a filter to reduce pieces of evidence that are less important.
+		"""
 		self.df_data = df_data
 		self.df_similarity = df_similarity
 		self.df_dissimilarity = df_dissimilarity
@@ -286,6 +370,13 @@ class InstanceBasedClassifier(object):
 		self.threshold = threshold
 
 	def predict(self, materials, trace=False, spark=False, show_decision=False):
+		"""
+		Returns the predicted labels of new instances (materials).
+		
+		trace: If True, the function adds lists of pieces of evidence, which are used to estimate properties of the new instances, to the output.
+		show_decision: If True, the function adds the combined mass function of collected pieces of evidence to the output.
+		spark: If True, the function is deployed on the Spark system to accelerate runtime.
+		"""
 		y_pred = []
 		trace_pred = []
 		final_decisions = []
